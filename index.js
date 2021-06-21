@@ -44,8 +44,9 @@ app1.all('/user',(res,req,netxt)=>{ //antes de netrar pasa primero por esta entr
 console.log('por aqui paso');
 //res.send('terminado');
 netxt();
-///
+
 });
+///
 
  //json
  app1.get('/user',(req,res)=>{
