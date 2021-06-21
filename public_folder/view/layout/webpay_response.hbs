@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>respuesta</title>
+</head>
+<body>
+   <button onclick="finish">terminar transaccion</button>
+   <input type="hidden" id="so" value="{{so}}">
+
+    <script>function finish(){
+        var so=document.getElementById('os').nodeValue
+        switch(so){
+            case 'android':
+            window.flurret_inappwebview.callHandler('jesuscanal',true)
+            
+            case 'ios': break 
+            //window.location=""dinamyc link 
+            case 'web': break
+        }
+        }</script>
+</body>
+</html>
