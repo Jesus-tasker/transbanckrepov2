@@ -4,8 +4,7 @@
   "description": "",
   "main": "pagos.js",
   "scripts": {
-    "start":"pagos.js",
-    "start1":"node pagos.js",
+    "start":"node pagos.js",
     "serve": "nodemon src/pagos.js",
     "server":"firebase emulators:start --only function"
   },
