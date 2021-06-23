@@ -1,1 +1,1 @@
-web :node pagos.js
+web: node pagos.js
