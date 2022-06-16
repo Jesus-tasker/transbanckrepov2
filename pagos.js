@@ -994,7 +994,7 @@ git push --force
     "name": "Test Name",
     "description": "Mastering the Transition to the Information Age",
     "local_price": {
-      "amount":"90.0",// total0,
+      "amount": total0, //"90.0",
       "currency": "USD"
     },
     "pricing_type": "fixed_price",
