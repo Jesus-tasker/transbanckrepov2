@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mi apinode.js</title>
+</head>
+<body>
+   <form action='https://webpay3gint.transbank.cl/webpayserver/initTransaction' id='webpay-form' method="post">
+
+        <input type="hidden" name="token_ws" value="01ab0236d7b002ede9377673782dea3fe417e0f323b6ac7ab801ba18ac98d36c"/>
+        <input type="submit" value="Ir a pagar" />
+    </form>
+
+    <script>
+        window.onload=function(){
+            document.getElementById('webpay-form').submit()}
+        </script>
+    
+</body>
+</html>
+
+

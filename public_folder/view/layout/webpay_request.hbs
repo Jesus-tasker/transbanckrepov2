@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagar con webpay</title>
+</head>
+<body>
+    <form action="{{urlwebpay}}" id='webpay-form' method="POST">
+
+        <input type="hidden" name="TBK_TOKEN" value="{{token_ws}}"/>
+        <input type="submit" value="pulsar para  pagar" />
+    </form>
+
+    <script>
+        window.onload=function(){
+            document.getElementById('webpay-form').submit()}
+        </script>
+</body>
+</html>
