@@ -990,12 +990,11 @@ git push --force
 // npm install --save-dev @firebase/util@1.x     npm install --save-dev @firebase/util@0.x
  */
 
-
   var firstChargeObj = new Charge({
     "name": "Test Name",
     "description": "Mastering the Transition to the Information Age",
     "local_price": {
-      "amount": total0, //"90.0",
+      "amount": total0,
       "currency": "USD"
     },
     "pricing_type": "fixed_price",
