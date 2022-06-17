@@ -973,7 +973,7 @@ git pull https://git.heroku.com/salonhousev2.git
 git push heroku HEAD:master
 
 
- --------------------git for github----------------------
+ --------------------git for github---------------------- 16/06/22
  git init
 git add ..
 git commit -m "first commit"
