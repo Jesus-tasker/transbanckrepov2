@@ -1096,6 +1096,7 @@ firstChargeObj.save(function (error, response) {
 app1.post('/validarchargue/:id',async(req,res)=>{
   //VALIDAMOS CON EL COIGO DEL  pago
   //podemos saber el estado mediante un get a la url de coinbase y el codigo del chargue para el cliente 
+  //https://commerce.coinbase.com/docs/api/
  // https://api.commerce.coinbase.com/charges/EVX5M3WE
  //recibe el codigo nada mas con eso ya el mismo sistema confirma la transaccion
  
@@ -1135,8 +1136,8 @@ app1.post('/validarchargue/:id',async(req,res)=>{
     console.log(JSON.stringify(response.data));
    // res.send(response.data)
     //res.send(response.data["data"]["timeline"]); //funciona me trae el estado si ha sido completado  NEW ,RESOLVED
-    res.send(response.data["data"]["payments"]);  //[] funciona abajo esta el json que usaria  pero regresa vacia si no se completa
-
+   // res.send(response.data["data"]["payments"]);  //[] funciona abajo esta el json que usaria  pero regresa vacia si no se completa
+   res.send(response.data["data"]["payments"]["status"]); 
   /*  if(response.data["data"]["payments"]===[]){
 
       res.send("Pago no realizado");
