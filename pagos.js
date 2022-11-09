@@ -810,6 +810,60 @@ axios(config)
 
 })
 
+//notificacion solo para inmobiliaria a usuario  ene ste caso para chat  /09/11/2022
+app1.post("/notifiinmobiliaria/:id",async(req,res)=>{
+  console.log("ENTRO A notifi")
+  //versiona app
+
+
+  var uid_notifi1=req.body['uid_notifi'];
+  var titulo1=req.body['titulo']; //orders.numero1111.uid
+  var mensaje1=req.body['mensaje'];
+ // var sessionId_v5=req.body['sessionId'];
+  //const uid_2= JSON.stringify(req.body['uid']);
+  //var secionidv4=req.body['sessionId']
+  console.log("uid: "+uid_notifi1);
+  console.log("titulo: "+titulo1);
+  console.log("mensaje  : "+mensaje1); //espero imprimir el id asi puedo obtener el uid
+  //console.log("sesionid: "+sessionId_v5);
+
+ var axios = require('axios');
+var data = JSON.stringify({
+  "notification": {
+    "body": mensaje1,//"texto notificaion",
+    "title":titulo1,// "Titulo"
+  },
+  "priority": "high",
+  "data": {
+    "product": "agua "
+  },
+  "to": uid_notifi1// "e2iM6V_qSjWuc4s3sAgyfM:APA91bE0CwsTrS-tgKpoqIGNHXa2HhGjy4kobaX2CmBLawEQkvJOallFARwprX-rrzMKeOMZgTF3l1QDccB5SAZVE2fw9NyH9vM7SQph-pO5ImMsCW1RRudI58tp8i4BYzZeJ-iEyuAz"
+});
+
+var config = {
+  method: 'post',
+  url: 'https://fcm.googleapis.com/fcm/send',
+  headers: { 
+    'Authorization': 'key=AAAAW4bhwk0:APA91bEOrGCjumi8sqWBjAbf54j6TTSgKztGSdWcUTCK_HloxRalKUhB_D1CfKAMkA2Lyb_LkAWlrg3hJ27Re5JMK_fTVXqt_i0n4V7ZdsHB8UFBTYwgoTeAcLLsZVZQWAjWt4UdgMke', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+  res.status("complete");
+})
+.catch(function (error) {
+  console.log(error);
+  res.status("error");
+});
+
+
+
+})
+
 
 
 ///----------------------coinbase- start--------------------------
