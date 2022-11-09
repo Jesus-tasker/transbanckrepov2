@@ -844,10 +844,11 @@ var config = {
   method: 'post',
   url: 'https://fcm.googleapis.com/fcm/send',
   headers: { 
-    'Authorization': 'key=AAAAW4bhwk0:APA91bEOrGCjumi8sqWBjAbf54j6TTSgKztGSdWcUTCK_HloxRalKUhB_D1CfKAMkA2Lyb_LkAWlrg3hJ27Re5JMK_fTVXqt_i0n4V7ZdsHB8UFBTYwgoTeAcLLsZVZQWAjWt4UdgMke', 
+    'Authorization': 'key=BMsuUHKV7c9QEUPnI2F2Bppc85UWusRRJ0DHJXPYf0s4UXBqTJuf9v1BAXeMVpJ5VHuEwIlPm6o4PlnFDOK1nJ0', 
     'Content-Type': 'application/json'
   },
   data : data
+  
 };
 
 axios(config)
