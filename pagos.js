@@ -810,7 +810,7 @@ axios(config)
 
 })
 
-//notificacion solo para inmobiliaria a usuario  ene ste caso para chat  /09/11/2022
+//notificacion solo para inmobiliaria a usuario  ene ste caso para chat 
 app1.post("/notifiinmobiliaria/:id",async(req,res)=>{
   console.log("ENTRO A notifi")
   //versiona app
