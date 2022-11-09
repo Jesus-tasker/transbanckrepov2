@@ -812,7 +812,7 @@ axios(config)
 
 //notificacion solo para inmobiliaria a usuario  ene ste caso para chat 
 app1.post("/notifiinmobiliaria/:id",async(req,res)=>{
-  console.log("ENTRO A notifi")
+  console.log("ENTRO A notifi inmobiliaria ")
   //versiona app
 
 
