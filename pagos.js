@@ -307,6 +307,74 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
   
  
 })
+  //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
+  app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
+    //versiona app
+    console.log("ENTRO A PAGAR V5")
+  
+    var uid=req.body['uid'];
+    var buy_orderv5=req.body['buyOrder']; //orders.numero1111.uid
+    var amount_v5=req.body['amount'];
+    var sessionId_v5=req.body['sessionId'];
+    //const uid_2= JSON.stringify(req.body['uid']);
+    //var secionidv4=req.body['sessionId']
+    console.log("uid: "+uid);
+    console.log("orden: "+buy_orderv5);
+    console.log("amount : "+amount_v5); //espero imprimir el id asi puedo obtener el uid
+    console.log("sesionid: "+sessionId_v5);
+  
+    //no cambiar este json es la estructura exacta que acepta transbanck
+      var data5 = JSON.stringify({
+       // "uid": uid,
+        "buy_order": buy_orderv5,//
+        "session_id":"01112",// este valor creo que viene de transbanck 
+        "amount": amount_v5,
+        "return_url":"http://salonhousev2.herokuapp.com/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
+      })
+      console.log(data5);
+  
+      var config5 = {
+        method: 'post',
+        url: 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.0/transactions',
+        headers: { 
+          'Tbk-Api-Key-Id': '597055555532', 
+          'tbk-Api-Key-Secret': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C', 
+          'Content-Type': 'application/json', 
+          'Cookie': 'cookie_webpay3g_certificacion=!TfwR4fipLIfm0dE5vBDnuDUP0c6hNncS3keI4Yc5jToSHwtZpst83E103o/zyDg/tW0udauaJr0GyOw='
+        },
+        data : data5
+      };
+  
+    var axiosresponse5=axios(config5).then(function (response) {
+      //funciona
+      console.log(JSON.stringify(response.data)); //obtengo el url y token exitosamente 
+    // console.log(JSON.stringify(response.data['token'])); //"01ab0236d7b002ede9377673782dea3fe417e0f323b6ac7ab801ba18ac98d36c
+    // console.log(JSON.stringify(response.data['url'])); //https://webpay3gint.transbank.cl/webpayserver/initTransaction
+    var tokenobtenido1=  response.data['token'];
+    var url_obtenido1=  response.data['url'];
+    console.log("iniciar transanccion  ");
+    console.log("token "+tokenobtenido1);
+    console.log("url "+url_obtenido1);
+    
+  
+    if(response.data!=null&&tokenobtenido1!=null&&url_obtenido1!=null){
+      //
+      var jsontocell={"token": tokenobtenido1,"url":url_obtenido1}
+  
+        res.send(jsontocell);
+  
+    }else{
+      var jsontocell={"no obtenido": tokenobtenido1,"no obtenido":url_obtenido1}
+        res.send(jsontocell);
+    }
+  
+    })
+    .catch(function (error) {
+      console.log('error catch'+ error)
+    });
+  
+  
+  })
 
 app1.post("/pagarv5/:id",async(req,res)=>{
   //versiona app
@@ -352,7 +420,7 @@ app1.post("/pagarv5/:id",async(req,res)=>{
   // console.log(JSON.stringify(response.data['url'])); //https://webpay3gint.transbank.cl/webpayserver/initTransaction
   var tokenobtenido1=  response.data['token'];
   var url_obtenido1=  response.data['url'];
-  console.log("iniciar transanccion ");
+  console.log("iniciar transanccion  ");
   console.log("token "+tokenobtenido1);
   console.log("url "+url_obtenido1);
   
@@ -636,6 +704,90 @@ app1.post('/response2',async(req,res)=>{ //originalmente post probamos con get
  // res.json({success: true})
 })
 
+//copya para responder ultima pagina de  inmobiliaria identidad autenticada
+app1.post('/response2inmobiliaria',async(req,res)=>{ //originalmente post probamos con get
+
+  var transbancktokken2=req.body.token_ws //
+ // var token_r1=req.query.token_ws //error 401 , //no usar body d error 
+
+  console.log('ENTRAMOS A RESPONSE2');
+ // console.log('tokken1 : '+token_r1);
+  console.log('tokken2 : '+transbancktokken2);
+
+
+
+  var url_test='https://webpay3gint.transbank.cl'; //integracion
+  var url_production='https://webpay3g.transbank.cl';
+ 
+   var config1 = {
+    method: 'put',
+    url:`${url_test}/rswebpaytransaction/api/webpay/v1.0/transactions/${transbancktokken2}`,
+    headers: { 
+      'Tbk-Api-Key-Id': '597055555532', 
+      'tbk-Api-Key-Secret': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C', 
+      'Content-Type': 'application/json', 
+      'Cookie': 'cookie_webpay3g_certificacion=!TfwR4fipLIfm0dE5vBDnuDUP0c6hNncS3keI4Yc5jToSHwtZpst83E103o/zyDg/tW0udauaJr0GyOw='
+    },
+
+  };
+  //var so=process['so'] //si el web view es en android  //sistema operativo 
+  var so='android';//process[''];
+    var axionresponse= axios(config1)
+    .then(function (responsev4) {
+        //funciona
+        //{"vci":"TSY","amount":70000,"status":"AUTHORIZED","buy_order":"orden_001224","session_id":"01112","card_detail":{"card_number":"6623"},"accounting_date":"0705","transaction_date":"2021-07-05T05:12:48.359Z","authorization_code":"1213","payment_type_code":"VN","response_code":0,"installments_number":0}
+        console.log(JSON.stringify(responsev4.data));
+      
+        var status=responsev4.data['response_code']
+        var order_number=responsev4.data['buy_order']
+
+        if(status=="0" || status==0 ){
+          
+        console.log('stado de compra: '+status)
+          //se proceso bien
+          //aqui si esta bien lo qeu recibimos en el navegador como respuesta lo guardamos en enuestra firebase
+
+          var process= db//await admi.database()
+        .ref(`orders/${order_number}`) //token de referencia 
+        .update(responsev4.data) //aqui le digo como guardarlo 
+        /*.once('value').then(
+          Console.log('actualizado')
+          //doc=>{return{...doc.val()}}
+          )*/
+           //pasmos al html5 utilizando url y tokken obtenido mediante el post interno  a transbanck
+           var completado='Pago completadp';
+        res.render('webpay_responseinmobiliaria.hbs',{ //enteoria aqui esta reronnando lo que pide transbanck para obtenerl el url
+          
+          so: so, //este es el methodo de ariiba envia un hidden oculto y el tokken 
+          respuesta: completado,
+         // token:axionresponse.tokken
+        })
+        }else{ //no}
+          console.log(' pago rechazado')
+
+          res.send("pago rechazado, error del proveedor de tarjeta ");
+        }
+
+      }) .catch(function (error) {
+        console.log('Error catch: '+ error)
+      }); //agregado despues de crear el webpay_request.hbs tipo html5
+      //
+      //final CreateWebpayPlusTransactionResponse response = WebpayPlus.Transaction.commit(token);
+   /*  try {
+      const responsev6 = await WebpayPlus.Transaction.status(transbancktokken2);
+      var status=responsev6['/response_code']
+      console.log("responsev6: git add -A"+JSON.stringify(responsev6.data));
+     } catch (error) {
+      console.log('error 2:'+error)
+     }*/
+  
+      
+
+      
+
+ // res.json({success: true})
+})
+
 //http://salonhousev2.herokuapp.com/response
 
 //qui es par aretornar la vista una vez que esta completa la transaccion 
@@ -839,7 +991,7 @@ var data = JSON.stringify({
   },
   "to": uid_notifi1// "e2iM6V_qSjWuc4s3sAgyfM:APA91bE0CwsTrS-tgKpoqIGNHXa2HhGjy4kobaX2CmBLawEQkvJOallFARwprX-rrzMKeOMZgTF3l1QDccB5SAZVE2fw9NyH9vM7SQph-pO5ImMsCW1RRudI58tp8i4BYzZeJ-iEyuAz"
 });
-
+//ya puse la clave de firebase messanging de neuvo bien 11/11/2022
 var config = {
   method: 'post',
   url: 'https://fcm.googleapis.com/fcm/send',

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>respuesta</title>
+</head>
+<body>
+    <h1>la transaccion fue realizada correctamente "{{completado}}"</h1>
+    <h2>la autenticacion puede tardar hasta 24 horas en  aparecer   </h2>
+   <button onclick="finish">terminar transaccion</button>
+   <input type="hidden" id="so" value="{{so}}">
+
+    <script>function finish(){
+        var so=document.getElementById('os').Value
+        switch(so){
+            case 'android':
+            //  window.flutter_inappwebview.callHandler('canal',true)
+            
+              if (window.flutter_inappwebview.callHandler) {
+                 window.flutter_inappwebview.callHandler('propiedadescanal', message);
+                    } else {
+                    /// maybe message type error in flutter, convert to string is work
+                    window.flutter_inappwebview._callHandler('propiedadescanal', setTimeout(function(){}), JSON.stringify([message]));
+                    }
+           // window.flutter_inappwebview.callHandler('jesuscanal',true)
+            break
+            
+            case 'ios': break 
+            //window.location=""dinamyc link 
+            case 'web': break
+        }
+        }</script>
+</body>
+</html>
+
+
