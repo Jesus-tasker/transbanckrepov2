@@ -25,6 +25,12 @@ const cors=require('cors');
 
 app1.use(cors())
 
+var corsOptions_inmobiliaria = {
+  origin: 'https://portalpropiedades.netlify.app/#/',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+
   //mensiona que aquui podemos configurar el motor
 app1.engine('.hbs',hbs.express4({            //ESTO ES UN MOTOR DE PLANTILLA (otra opcion mas especifica  )
 
@@ -279,7 +285,7 @@ app1.post("/confirmarpago/:id",async(req,res)=>{
   
  
 })
-
+//---inmobiliaria
 app1.post("/servicio_completo/:id",async(req,res)=>{
 
   console.log("envio los datos del servicio terminado ");
@@ -308,7 +314,7 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
  
 })
   //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
-  app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
+app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
     //versiona app
     console.log("ENTRO A PAGAR V5")
   
