@@ -48,8 +48,17 @@ var corsOptions = {
     }
   }
 }
+app1.options('*', cors());
 
-app1.use('Access-Control-Allow-Origin'='*');
+//provando cors
+app1.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
+//app1.use('Access-Control-Allow-Origin''*');
  
 app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
