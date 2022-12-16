@@ -49,7 +49,7 @@ var corsOptions = {
   }
 }
 
-app.use('Access-Control-Allow-Origin'='*');
+app1.use('Access-Control-Allow-Origin'='*');
  
 app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
