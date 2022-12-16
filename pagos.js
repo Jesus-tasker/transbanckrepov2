@@ -24,7 +24,16 @@ const hbs=require('express-hbs');
 const cors=require('cors');
 
 //--15/12/24 agregado  CORS
-app1.use(cors());
+//app1.use(cors());
+
+ // Cors
+ const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+app1.use(cors(corsOptions));
+//,cors(corsOptions)
 /*
 var corsOptions_inmobiliaria = {
   origin: 'https://portalpropiedades.netlify.app/#/',
@@ -38,7 +47,8 @@ app1.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });*/
-
+//tampoco funciono 
+/*
 var whitelist = ['https://portalpropiedades.netlify.app', 'https://portalpropiedades.netlify.app/#/']
 var corsOptions = {
   origin: function (origin, callback) {
@@ -81,6 +91,7 @@ app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
 app1.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
+*/
 
 //_--------
 
@@ -370,7 +381,7 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
  
 })
   //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
-app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
+app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
     //versiona app
     console.log("ENTRO A PAGAR V5")
   
