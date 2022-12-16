@@ -31,6 +31,13 @@ var corsOptions_inmobiliaria = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.options('*', cors());
+
+//provando cors
+app1.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 //_--------
 
 
@@ -112,6 +119,8 @@ app1.get('/',(req,res)=>{
 
    res.render('pagos.js', {people: data});//View/index.ejs /pasamos la lsita de datos y que los muestre  
 });
+
+
 
 
 
