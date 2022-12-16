@@ -58,6 +58,19 @@ app1.use(function(req, res, next) {
 });
 
 
+app1.handler = async (event) => {
+    const response = {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "https://portalpropiedades.netlify.app",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
+        body: JSON.stringify('Hello from Lambda!'),
+    };
+    return response;
+};
+
 //app1.use('Access-Control-Allow-Origin''*');
  
 app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
