@@ -38,7 +38,8 @@ app1.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });*/
-var whitelist = ['https://portalpropiedades.netlify.app', 'http://localhost:5000']
+
+var whitelist = ['https://portalpropiedades.netlify.app', 'https://portalpropiedades.netlify.app/#/']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -80,6 +81,7 @@ app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
 app1.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
+
 //_--------
 
 
@@ -368,7 +370,7 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
  
 })
   //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
-app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
+app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
     //versiona app
     console.log("ENTRO A PAGAR V5")
   
