@@ -23,12 +23,15 @@ var router = exprees.Router(); //cripto api coinnbase
 const hbs=require('express-hbs');
 const cors=require('cors');
 
+//--15/12/24 agregado
 app1.use(cors())
 
 var corsOptions_inmobiliaria = {
   origin: 'https://portalpropiedades.netlify.app/#/',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
+app.options('*', cors());
+//_--------
 
 
   //mensiona que aquui podemos configurar el motor
@@ -314,7 +317,7 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
  
 })
   //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
-app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
+app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
     //versiona app
     console.log("ENTRO A PAGAR V5")
   
