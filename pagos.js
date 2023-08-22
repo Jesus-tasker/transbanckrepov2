@@ -1202,6 +1202,7 @@ Checkout.create({
 })
 //2PAGOS -CHaRGUE (ESTE funciono perfectamente )
 app1.post('/chargue3cargos/:id',async(req,res)=>{
+//blabla 
   console.log("chargue crear un cargo  de pago ");
   var uid_c0=req.body['uid'];
   var buy_orderv_C0=req.body['buyOrder'];
