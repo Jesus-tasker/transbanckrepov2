@@ -32,7 +32,7 @@ const cors=require('cors');
   credentials: true,
   optionSuccessStatus: 200
 }
-app1.use(cors(corsOptions));
+app1.use(cors(corsOptions))
 //,cors(corsOptions)
 /*
 var corsOptions_inmobiliaria = {
