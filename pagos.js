@@ -24,7 +24,16 @@ const hbs=require('express-hbs');
 const cors=require('cors');
 
 //--15/12/24 agregado  CORS
-app1.use(cors());
+//app1.use(cors());
+
+ // Cors
+ const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+app1.use(cors(corsOptions))
+//,cors(corsOptions)
 /*
 var corsOptions_inmobiliaria = {
   origin: 'https://portalpropiedades.netlify.app/#/',
@@ -38,7 +47,9 @@ app1.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });*/
-var whitelist = ['https://portalpropiedades.netlify.app', 'http://example2.com']
+//tampoco funciono 
+/*
+var whitelist = ['https://portalpropiedades.netlify.app', 'https://portalpropiedades.netlify.app/#/']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -48,8 +59,30 @@ var corsOptions = {
     }
   }
 }
+app1.options('*', cors());
 
-app.use('Access-Control-Allow-Origin'='*');
+//provando cors
+app1.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
+app1.handler = async (event) => {
+    const response = {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "https://portalpropiedades.netlify.app",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
+        body: JSON.stringify('Hello from Lambda!'),
+    };
+    return response;
+};
+
+//app1.use('Access-Control-Allow-Origin''*');
  
 app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
@@ -58,6 +91,8 @@ app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
 app1.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
+*/
+
 //_--------
 
 
@@ -346,7 +381,7 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
  
 })
   //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
-app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
+app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
     //versiona app
     console.log("ENTRO A PAGAR V5")
   
