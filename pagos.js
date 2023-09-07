@@ -23,16 +23,23 @@ var router = exprees.Router(); //cripto api coinnbase
 const hbs=require('express-hbs');
 const cors=require('cors');
 
-//--15/12/24 agregado  CORS
-//app1.use(cors());
-
- // Cors
+//--15/12/22 agregado  CORS
+//app1.use(cors()); //es para permitir recibir paginas info
+const corsOptions = {
+  origin: ['http://portalcapital.cl', 'http://casinoscripto.co','https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/'], // Lista de URLs permitidas
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
+  credentials: true, // Habilita el intercambio de cookies o credenciales
+  optionsSuccessStatus: 204, // Respuesta exitosa para las solicitudes OPTIONS
+};
+app1.use(cors(corsOptions))
+ // Cors anterior parecia funcionar asi que no lo elimiens
+ /*
  const corsOptions = {
   origin: '*',
   credentials: true,
   optionSuccessStatus: 200
 }
-app1.use(cors(corsOptions))
+app1.use(cors(corsOptions))*/
 //,cors(corsOptions)
 /*
 var corsOptions_inmobiliaria = {
@@ -1618,7 +1625,7 @@ router.post('/coins', function  (request, response ){
 //app1.listen((process.env.PORT || app1...
 app1.listen(process.env.PORT ||app1.get('port'),()=>{ //app1.listen(5000,()=>{  //puerto local de escucha de nuestro servidor  "http://localhost:3000/"
    console.log(app1.get('app_name')); ///nombre del puerto
-   console.log('puerto' ,app1.get('port')); //puerto N°
+   console.log('puerto:' ,app1.get('port')); //puerto N°
 
    });
 

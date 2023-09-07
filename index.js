@@ -14,7 +14,7 @@ const app1=exprees();
 
 //SETTINGS /(nombre variable, valor variable)
 app1.set('app_name','Fazt express tutorial '); //este se muestra en consola al iniciar la conexcion con el host
-app1.set('port',5000)
+//app1.set('port',5000)
 app1.set('view engine','ejs'); //ESTO ES UN MOTOR DE PLANTILLA
 //app1.set('views',path.join("./public_folder/view",'view'))
 //comando para load : npx nodemon index.js
