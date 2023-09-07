@@ -26,20 +26,20 @@ const cors=require('cors');
 //--15/12/22 agregado  CORS
 //app1.use(cors()); //es para permitir recibir paginas info
  // Cors anterior parecia funcionar asi que no lo elimiens
- 
+ /*
  const corsOptions = {
   origin: '*',
   credentials: true,
   optionSuccessStatus: 200
-}
-/*
+}*/
+
 //probamos especificas
 const corsOptions = {
   origin: ['https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/'], // Lista de URLs permitidas
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   optionsSuccessStatus: 204, // Respuesta exitosa para las solicitudes OPTIONS
-};*/
+};
 app1.use(cors(corsOptions))
 
 
