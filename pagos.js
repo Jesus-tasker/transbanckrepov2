@@ -35,7 +35,7 @@ const cors=require('cors');
 
 //probamos especificas
 const corsOptions = {
-  origin: ['https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/'], // Lista de URLs permitidas
+  origin: ['https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/','https://casinoscripto.co/#/','https://portalcapital.cl/#/'], // Lista de URLs permitidas
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   optionsSuccessStatus: 204, // Respuesta exitosa para las solicitudes OPTIONS
