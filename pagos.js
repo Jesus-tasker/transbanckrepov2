@@ -35,7 +35,7 @@ const cors=require('cors');
 
 //probamos especificas
 const corsOptions = {
-  origin: ['https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/','https://casinoscripto.co/#/','https://portalcapital.cl/#/'], // Lista de URLs permitidas
+  origin: ['http://localhost:51118', 'https://newlove.cl','https://newlove.cl/#/','https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/','https://casinoscripto.co/#/','https://portalcapital.cl/#/'], // Lista de URLs permitidas
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   optionsSuccessStatus: 204, // Respuesta exitosa para las solicitudes OPTIONS
@@ -412,7 +412,7 @@ app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
         "buy_order": buy_orderv5,//
         "session_id":"01112",// este valor creo que viene de transbanck 
         "amount": amount_v5,
-        "return_url":"http://salonhousev2.herokuapp.com/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
+        "return_url":"http://3.221.115.165:5000/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
       })
       console.log(data5);
   
