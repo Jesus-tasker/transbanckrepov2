@@ -34,14 +34,19 @@ const cors=require('cors');
 }*/
 const corsOptions = {
  origin :['https://newlove.cl','https://newlove.cl/#/','http://localhost:51576','https://newlove.cl/'],
- methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
   optionsSuccessStatus: 204, // Respuesta exitosa para las solicitudes OPTIONS
 };
 app1.use(cors(corsOptions))
 
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', ['https://newlove.cl','https://newlove.cl/#/','http://localhost:51576','https://newlove.cl/']); // Replace with your origin
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 //,cors(corsOptions)
 /*
 var corsOptions_inmobiliaria = {
