@@ -35,9 +35,12 @@ const cors=require('cors');
 
 //probamos especificas
 const corsOptions = {
-  origin: ['http://localhost:51118','eloquent-halva-f6f5f1.netlify.app','newlove.cl', 'https://newlove.cl','https://newlove.cl/#/','https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/','https://casinoscripto.co/#/','https://portalcapital.cl/#/'], // Lista de URLs permitidas
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
+ // origin: ['http://localhost:51576','eloquent-halva-f6f5f1.netlify.app','newlove.cl', 'https://newlove.cl','https://newlove.cl/#/','https://casinoscripto.netlify.app/#/','https://portalcapital.netlify.app/#/','https://casinoscripto.co/#/','https://portalcapital.cl/#/'], // Lista de URLs permitidas
+  
+ origin :['https://newlove.cl','https://newlove.cl/#/','http://localhost:51576','http://newlove.cl','https://newlove.cl/'],
+ methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
+  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
   optionsSuccessStatus: 204, // Respuesta exitosa para las solicitudes OPTIONS
 };
 app1.use(cors(corsOptions))
