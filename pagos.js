@@ -33,7 +33,7 @@ const cors=require('cors');
   optionSuccessStatus: 200
 }*/
 const corsOptions = {
- origin :['https://newlove.cl','https://newlove.cl/#/','http://localhost:51576','https://newlove.cl/','http://localhost:8080/'],
+  origin: ['https://newlove.cl', 'http://localhost:8080'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
