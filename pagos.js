@@ -41,6 +41,8 @@ const corsOptions = {
 };
 app1.use(cors(corsOptions))
 
+
+/* //me da error por que no estan definidas y tiene sentido se supone qu estas keys estan en la nube 
 const options2_production = {
   key: fs.readFileSync('/etc/ssl/private/privkey.pem'),
   cert: fs.readFileSync('/etc/ssl/certs/fullchain.pem')
@@ -49,7 +51,7 @@ const options2_production = {
 https.createServer(options2_production, app1).listen(443, () => {
   console.log('Server running on port 443');
 });
-
+*/
 
 //--------
 
