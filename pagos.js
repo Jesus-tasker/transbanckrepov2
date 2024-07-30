@@ -40,72 +40,16 @@ const corsOptions = {
   optionsSuccessStatus: 200, // Respuesta exitosa para las solicitudes OPTIONS
 };
 app1.use(cors(corsOptions))
-/*
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', ['https://newlove.cl','https://newlove.cl/#/','http://localhost:51576','https://newlove.cl/']); // Replace with your origin
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-});*/
-//,cors(corsOptions)
-/*
-var corsOptions_inmobiliaria = {
-  origin: 'https://portalpropiedades.netlify.app/#/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app1.options('*', cors());
-
-//provando cors
-app1.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
-//tampoco funciono 
-/*
-var whitelist = ['https://portalpropiedades.netlify.app', 'https://portalpropiedades.netlify.app/#/']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-app1.options('*', cors());
-
-//provando cors
-app1.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-
-app1.handler = async (event) => {
-    const response = {
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "https://portalpropiedades.netlify.app",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-        },
-        body: JSON.stringify('Hello from Lambda!'),
-    };
-    return response;
+const options2_production = {
+  key: fs.readFileSync('/etc/ssl/private/privkey.pem'),
+  cert: fs.readFileSync('/etc/ssl/certs/fullchain.pem')
 };
 
-//app1.use('Access-Control-Allow-Origin''*');
- 
-app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
-})
- 
-app1.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
-})
-*/
+https.createServer(options2_production, app1).listen(443, () => {
+  console.log('Server running on port 443');
+});
+
 
 //--------
 
