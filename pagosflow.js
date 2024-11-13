@@ -25,31 +25,7 @@ var router = exprees.Router(); //cripto api coinnbase
 
 const hbs=require('express-hbs');
 const cors=require('cors');
-/*
-////no se recomienda usar helmet en produccion 
-const helmet = require('helmet'); //agregado para flow
-app1.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrcElem: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://js.hs-scripts.com"],
-      },
-    },
-  })
-);*/
 
-
-
-//--15/12/22 agregado  CORS
-//app1.use(cors()); //es para permitir recibir paginas info
- // Cors anterior parecia funcionar asi que no lo elimiens
- /*
- const corsOptions = {
-  origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200
-}*/
 const corsOptions = {
   origin: ['https://newlove.cl', 'http://localhost:8080',"https://www.flow.cl"],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
@@ -71,6 +47,8 @@ layoutDir: './public_folder/view/layout',                        //basicamente c
 app1.set("./public_folder/view/layout")
 app1.set('view engine','.hbs');
 
+app1.set('app_name','Fazt express tutorial '); 
+app1.set('port',process.env.port|| 5000);
 /////////////////////--2. MIDDLEWARES---////////////////////////
 //2. MIDDLEWARES
 app1.use(exprees.json()); //para que reciba objetos json traida de express
@@ -90,8 +68,7 @@ app1.set('view engine', 'html');
 
 
 //1.SETTINGS /(nombre variable, valor variable)
-app1.set('app_name','Fazt express tutorial '); //este se muestra en consola al iniciar la conexcion con el host
-app1.set('port',process.env.port|| 5000);
+
  //error : ESTO ES UN MOTOR DE PLANTILLA (otra opcion mas especifica  )
 
 
@@ -106,17 +83,10 @@ app1.get('/hola',function(req,res) {
     //  res.sendFile('hola.html');
   });
 
-  app1.post('/hola2',function(req,res) {
+app1.post('/hola2',function(req,res) {
     console.log ('entro a hola2');
-  // res.render("<html> <head>server Response</head><body><h1> This page was render direcly from the server <p>Hello there welcome to my website</p></h1></body></html>")
-    
- /* res.status(200).json({
-    status: "pagocompletado",
-    details: "data",  // Puedes enviar aquí los detalles que quieras mostrar en Flutter
-   });*/
-  res.render('hola.hbs');
-      //  res.sendFile('hola.html');
-
+  
+  res.render('hola.hbs'); 
       
 
     });
