@@ -71,6 +71,16 @@ layoutDir: './public_folder/view/layout',                        //basicamente c
 app1.set("./public_folder/view/layout")
 app1.set('view engine','.hbs');
 
+/////////////////////--2. MIDDLEWARES---////////////////////////
+//2. MIDDLEWARES
+app1.use(exprees.json()); //para que reciba objetos json traida de express
+//app1.use(logger); //funcion creda aqui
+app1.use(morgan('dev')); // EVALUA ENTRADAS EN TIEMPOS DE CONEXION y mensiona que esta en desarrollo
+
+app1.use(exprees.urlencoded({extended: false //permite usar json opscion 2  como:  app1.use(exprees.json());
+})) //aceptar datos en formularios html
+//---
+
 
 app1.set('views',path.join("./public_folder/view",'layout')) 
 // Set view engine as EJS
