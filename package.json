@@ -2,10 +2,10 @@
   "name": "express-curse",
   "version": "1.0.0",
   "description": "",
-  "main": "pagosflow.js",
+  "main": "pagos.js",
   "scripts": {
-    "start": "node pagosflow.js",
-    "serve": "nodemon src/pagosflow.js",
+    "start": "node pagos.js",
+    "serve": "nodemon src/pagos.js",
     "server": "firebase emulators:start --only function"
   },
   "engines": {

@@ -225,7 +225,7 @@ app1.post("/create-payment/:id",async(req,res)=>{
             // Realiza la solicitud usando fetch o tu método preferido (en este caso usando `fetch`)
             //ORIGINAL FUNCIONA PERO NO RETORNA EL JSON
             //1.ONTENER URL 
-            const response = await fetch('https://www.flow.cl/api/payment/create', {
+            const response = await fetch(apiUrl, {
               method: 'POST',
               headers: {
                 // headers
@@ -260,13 +260,13 @@ app1.post("/create-payment/:id",async(req,res)=>{
       //HASTA AQUI TODO FUNCIONA PERFECTI
 
             //----intento 1
-              var nodo='ordenescompra'//req.params; //funciona 
+           /*   var nodo='ordenescompra'//req.params; //funciona 
 
               //forma correcta de recibir un json y pasarlo a firebase 
                db.ref('orders').child(nodo).set({
                   amount:req.body.amount,
                  order:req.body.order,
-                 os:req.body.os});
+                 os:req.body.os});*/
                //db.ref('order').set({nombre:'gaston',mensaje:'jodete'}); //si gurarda en firebase
            
             res.send('RECIBED');
@@ -319,7 +319,7 @@ app1.post("/payment-callback-flow2", async (req, res) => {
           .update(params)
           .digest('hex'); // Calcula la firma para la solicitud a Flow
  
-          const url = `https://www.flow.cl/api/payment/getStatus?${params}&s=${signature}`; //    data: { code: 105, message: 'No services available' }
+          const url = `https://sandbox.flow.cl/payment/getStatus?${params}&s=${signature}`; //    data: { code: 105, message: 'No services available' }
 
 
       //--hasta a qui vamos bien creo luego hae el get
@@ -387,7 +387,7 @@ app1.post("/consultar_orden_pagada/:id", async (req, res) => {
 
     try {
       // Realiza la solicitud GET a la API de Flow
-      const response = await axios.get(`https://www.flow.cl/api/payment/getStatusByFlowOrder`, { params });
+      const response = await axios.get(`https://sandbox.flow.cl/payment/getStatusByFlowOrder`, { params });
        response.data;//muestra todo el json 
 
                   /*Estado de la orden: {
