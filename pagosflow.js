@@ -27,7 +27,7 @@ const hbs=require('express-hbs');
 const cors=require('cors');
 
 const corsOptions = {
-  origin: ['https://newlove.cl', 'http://localhost:8080',"https://www.flow.cl"],
+  origin: ['https://newlove.cl', 'http://localhost:8080',"https://www.flow.cl","https://sandbox.flow.cl"],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
@@ -175,7 +175,7 @@ app1.post("/create-payment/:id",async(req,res)=>{
         "amount": amount_v5,
         "return_url":"https://newloverbacked.lat/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
       })
-      console.log(data5);
+     // console.log(data5);
       
       
       async function createPayment() {
