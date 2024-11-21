@@ -429,7 +429,7 @@ app1.post("/consultar_orden_pagada/:id", async (req, res) => {
   }
 
   
-  onsultarEstadoOrden(id).then(estado => {
+  consultarEstadoOrden(id).then(estado => {
     console.log('Estado de la orden:', estado);
  
     res.send(estado);
