@@ -385,10 +385,11 @@ app1.post("/consultar_orden_pagada/:id", async (req, res) => {
     params['s'] = signature;
 
 
-    try {
-      // Realiza la solicitud GET a la API de Flow
-      const response = await axios.get(`https://sandbox.flow.cl/payment/getStatusByFlowOrder`, { params });
-       response.data;//muestra todo el json 
+    try {  
+      // Realiza la solicitud GET a la API de Flow revisar aveces se actualia   https://sandbox.flow.cl/api/payment/getStatusByFlowOrder usado anteriormente me funciono 1 vez  en pruebas locales 
+      const response = await axios.get(`https://sandbox.flow.cl/api/payment/getStatusByFlowOrderExtended`, { params });
+      // response.data;//muestra todo el json 
+     //  print(response.data.json);
 
                   /*Estado de la orden: {
               flowOrder: 2315622,
