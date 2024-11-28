@@ -160,6 +160,7 @@ app1.post("/create-payment/:id",async(req,res)=>{
     var buy_orderv5=req.body['buyOrder']; //orders.numero1111.uid
     var amount_v5=req.body['amount'];
     var sessionId_v5=req.body['sessionId'];
+    var correo=req.body['correo'];
     //const uid_2= JSON.stringify(req.body['uid']);
     //var secionidv4=req.body['sessionId']
     console.log("uid: "+uid);
@@ -199,7 +200,7 @@ app1.post("/create-payment/:id",async(req,res)=>{
             subject: "Pago de prueba",
             currency: "CLP",
             amount: amount_v5,
-            email: "cliente@correo.com",
+            email: correo,//"cliente@correo.com",
             // https://2467-190-21-234-140.ngrok-free.app  generado con  ngrok para que  reciba url de flow en local host 
             urlConfirmation: "https://newloverbacked.lat/payment-callback-flow2",//url donde envia el token de confirmacion de pago
             urlReturn: "https://newloverbacked.lat/hola2" //post? //"http://localhost:8080//verificar-orden-newlove/:id" //url donde te envia al terminar el pago
@@ -319,8 +320,8 @@ app1.post("/payment-callback-flow2", async (req, res) => {
           .update(params)
           .digest('hex'); // Calcula la firma para la solicitud a Flow
  
-          const url = `https://sandbox.flow.cl/payment/getStatus?${params}&s=${signature}`; //    data: { code: 105, message: 'No services available' }
-
+         // const url = `https://sandbox.flow.cl/payment/getStatus?${params}&s=${signature}`; //    data: { code: 105, message: 'No services available' }
+          const url = `https://www.flow.cl/payment/getStatus?${params}&s=${signature}`; 
 
       //--hasta a qui vamos bien creo luego hae el get
       console.log("parametros:", params);
@@ -387,7 +388,9 @@ app1.post("/consultar_orden_pagada/:id", async (req, res) => {
 
     try {  
       // Realiza la solicitud GET a la API de Flow revisar aveces se actualia   https://sandbox.flow.cl/api/payment/getStatusByFlowOrder usado anteriormente me funciono 1 vez  en pruebas locales 
-      const response = await axios.get(`https://sandbox.flow.cl/api/payment/getStatusByFlowOrderExtended`, { params });
+     // const response = await axios.get(`https://sandbox.flow.cl/api/payment/getStatusByFlowOrderExtended`, { params });
+      const response = await axios.get(`https://www.flow.cl/api/payment/getStatusByFlowOrderExtended`, { params });
+     
       // response.data;//muestra todo el json 
      //  print(response.data.json);
 
