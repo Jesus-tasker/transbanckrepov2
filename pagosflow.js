@@ -197,7 +197,7 @@ app1.post("/create-payment/:id",async(req,res)=>{
           const payload = {
             apiKey: apiKey,
             commerceOrder: buy_orderv5,
-            subject: "Pago de prueba",
+            subject: "compra online",
             currency: "CLP",
             amount: amount_v5,
             email: correo,//"cliente@correo.com",
