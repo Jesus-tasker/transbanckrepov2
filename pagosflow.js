@@ -28,7 +28,7 @@ const cors=require('cors');
 
 const corsOptions = {
   origin: ['https://newlove.cl', 'http://localhost:8080'
-    ,"https://www.flow.cl","https://sandbox.flow.cl", "https://hydraacademy.netlify.app/", "https://hydraschool.lat/","https://hydraschool.lat", "https://montoyapeluqueria.netlify.app/" ],
+    ,"https://www.flow.cl","https://sandbox.flow.cl", "https://hydraacademy.netlify.app/", "https://hydraschool.lat/","https://hydraschool.lat", "https://montoyapeluqueria.netlify.app/",],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
