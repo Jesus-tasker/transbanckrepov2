@@ -25,10 +25,14 @@ var router = exprees.Router(); //cripto api coinnbase
 
 const hbs=require('express-hbs');
 const cors=require('cors');
-
+//'http://localhost:8080'
 const corsOptions = {
-  origin: ['https://newlove.cl', 'http://localhost:8080'
-    ,"https://www.flow.cl","https://sandbox.flow.cl", "https://hydraacademy.netlify.app/", "https://hydraschool.lat/","https://hydraschool.lat", "https://montoyapeluqueria.netlify.app/","https://montoyapeluqueria.netlify.app/#home",],
+  origin: ['https://newlove.cl', 
+    ,"https://www.flow.cl","https://sandbox.flow.cl", 
+    "https://hydraacademy.netlify.app/", "https://hydraschool.lat/","https://hydraschool.lat",
+     "https://montoyapeluqueria.netlify.app/","https://montoyapeluqueria.netlify.app/#home",
+    "www.estudiofacil.com",
+    ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
   credentials: true, // Habilita el intercambio de cookies o credenciales
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],

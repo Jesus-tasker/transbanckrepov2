@@ -1570,8 +1570,81 @@ router.post('/coins', function  (request, response ){
 
 
 
-//-----------------coinbase over---------------
+//-----------------IA gemini---------------
+app1.post("/generate-video", async (req, res) => {
+   
+      console.log ('entro a generar video ');
+  try {
+    const { prompt, imageUrl } = req.body;
 
+    // Ejemplo con Google Gemini Video API (hipotético)
+    const response = await axios.post(
+      "https://generativelanguage.googleapis.com/v1beta/models/veo-3:generateVideo?key=" + process.env.GEMINI_API_KEY,
+      {
+        prompt: {
+          text: prompt,
+        },
+        ...(imageUrl && { image: { url: imageUrl } }),
+        config: {
+          durationSeconds: 5, // duración de video
+          aspectRatio: "16:9",
+        },
+      }
+    );
+
+    // Supongamos que la API devuelve una URL del video generado
+    res.json({
+      status: "success",
+      videoUrl: response.data.videoUrl || "https://example.com/video.mp4",
+    });
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    res.status(500).json({ error: "Error al generar video" });
+  }
+});
+//V2
+app1.post("/generate-video2", async (req, res) => {
+  const { prompt } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ error: "Falta el campo prompt" });
+  }
+
+  try {
+    // Llamada a Gemini Veo 3
+    const response = await axios.post(
+      "https://generativelanguage.googleapis.com/v1beta/models/veo-3:generateVideo?key=" + process.env.GEMINI_API_KEY,
+      {
+        prompt: { text: prompt },
+        config: {
+          durationSeconds: 5,
+          aspectRatio: "16:9"
+        }
+      },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    // La API devuelve un objeto con URL o ID del video
+    const videoUrl = response.data?.videoUrl || null;
+
+    if (!videoUrl) {
+      return res.status(500).json({ error: "No se generó video" });
+    }
+
+    res.json({
+      status: "success",
+      videoUrl
+    });
+
+  } catch (error) {
+    console.error("Error Gemini:", error.response?.data || error.message);
+    res.status(500).json({ error: "Error al generar video" });
+  }
+});
 
 
 //agregado 
