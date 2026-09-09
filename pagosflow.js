@@ -299,6 +299,90 @@ app1.post("/create-payment/:id",async(req,res)=>{
 
 });
 
+//copya para responder ultima pagina de  inmobiliaria identidad autenticada
+app1.post('/response2inmobiliaria',async(req,res)=>{ //originalmente post probamos con get
+
+  var transbancktokken2=req.body.token_ws //
+ // var token_r1=req.query.token_ws //error 401 , //no usar body d error 
+
+  console.log('ENTRAMOS A RESPONSE2');
+ // console.log('tokken1 : '+token_r1);
+  console.log('tokken2 : '+transbancktokken2);
+
+
+
+  var url_test='https://webpay3gint.transbank.cl'; //integracion
+  var url_production='https://webpay3g.transbank.cl';
+ 
+   var config1 = {
+    method: 'put',
+    url:`${url_test}/rswebpaytransaction/api/webpay/v1.0/transactions/${transbancktokken2}`,
+    headers: { 
+      'Tbk-Api-Key-Id': '597055555532', 
+      'tbk-Api-Key-Secret': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C', 
+      'Content-Type': 'application/json', 
+      'Cookie': 'cookie_webpay3g_certificacion=!TfwR4fipLIfm0dE5vBDnuDUP0c6hNncS3keI4Yc5jToSHwtZpst83E103o/zyDg/tW0udauaJr0GyOw='
+    },
+
+  };
+  //var so=process['so'] //si el web view es en android  //sistema operativo 
+  var so='android';//process[''];
+    var axionresponse= axios(config1)
+    .then(function (responsev4) {
+        //funciona
+        //{"vci":"TSY","amount":70000,"status":"AUTHORIZED","buy_order":"orden_001224","session_id":"01112","card_detail":{"card_number":"6623"},"accounting_date":"0705","transaction_date":"2021-07-05T05:12:48.359Z","authorization_code":"1213","payment_type_code":"VN","response_code":0,"installments_number":0}
+        console.log(JSON.stringify(responsev4.data));
+      
+        var status=responsev4.data['response_code']
+        var order_number=responsev4.data['buy_order']
+
+        if(status=="0" || status==0 ){
+          
+        console.log('stado de compra: '+status)
+          //se proceso bien
+          //aqui si esta bien lo qeu recibimos en el navegador como respuesta lo guardamos en enuestra firebase
+
+          var process= db//await admi.database()
+        .ref(`orders/${order_number}`) //token de referencia 
+        .update(responsev4.data) //aqui le digo como guardarlo 
+        /*.once('value').then(
+          Console.log('actualizado')
+          //doc=>{return{...doc.val()}}
+          )*/
+           //pasmos al html5 utilizando url y tokken obtenido mediante el post interno  a transbanck
+           var completado='Pago completadp';
+        res.render('webpay_responseinmobiliaria.hbs',{ //enteoria aqui esta reronnando lo que pide transbanck para obtenerl el url
+          
+          so: so, //este es el methodo de ariiba envia un hidden oculto y el tokken 
+          respuesta: completado,
+         // token:axionresponse.tokken
+        })
+        }else{ //no}
+          console.log(' pago rechazado')
+
+          res.send("pago rechazado, error del proveedor de tarjeta ");
+        }
+
+      }) .catch(function (error) {
+        console.log('Error catch: '+ error)
+      }); //agregado despues de crear el webpay_request.hbs tipo html5
+      //
+      //final CreateWebpayPlusTransactionResponse response = WebpayPlus.Transaction.commit(token);
+   /*  try {
+      const responsev6 = await WebpayPlus.Transaction.status(transbancktokken2);
+      var status=responsev6['/response_code']
+      console.log("responsev6: git add -A"+JSON.stringify(responsev6.data));
+     } catch (error) {
+      console.log('error 2:'+error)
+     }*/
+  
+      
+
+      
+
+ // res.json({success: true})
+})
+
 //2. funciona perfectamente para validar el pago el url que retrona a mi back
 app1.post("/payment-callback-flow2", async (req, res) => {
   //si no entra el pago nunca se completo 
