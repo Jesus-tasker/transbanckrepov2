@@ -179,7 +179,7 @@ app1.post("/create-payment/:id",async(req,res)=>{
         "buy_order": buy_orderv5,//
         "session_id":"01112",// este valor creo que viene de transbanck 
         "amount": amount_v5,
-        "return_url":"https://newloverbacked.lat/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
+        "return_url":"https://newloverbacked.com/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
       })
      // console.log(data5);
       
@@ -207,8 +207,8 @@ app1.post("/create-payment/:id",async(req,res)=>{
             amount: amount_v5,
             email: correo,//"cliente@correo.com",
             // https://2467-190-21-234-140.ngrok-free.app  generado con  ngrok para que  reciba url de flow en local host 
-            urlConfirmation: "https://newloverbacked.lat/payment-callback-flow2",//url donde envia el token de confirmacion de pago
-            urlReturn: "https://newloverbacked.lat/hola2" //post? //"http://localhost:8080//verificar-orden-newlove/:id" //url donde te envia al terminar el pago
+            urlConfirmation: "https://newloverbacked.com/payment-callback-flow2",//url donde envia el token de confirmacion de pago
+            urlReturn: "https://newloverbacked.com/hola2" //post? //"http://localhost:8080//verificar-orden-newlove/:id" //url donde te envia al terminar el pago
           };
       
       
