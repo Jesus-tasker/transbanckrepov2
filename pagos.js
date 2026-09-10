@@ -23,42 +23,37 @@ var router = exprees.Router(); //cripto api coinnbase
 const hbs=require('express-hbs');
 const cors=require('cors');
 
-//--15/12/24 agregado  CORS
-app1.use(cors());
-/*
-var corsOptions_inmobiliaria = {
-  origin: 'https://portalpropiedades.netlify.app/#/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app1.options('*', cors());
+//--15/12/22 agregado  CORS
+//app1.use(cors()); //es para permitir recibir paginas info
+ // Cors anterior parecia funcionar asi que no lo elimiens
+ /*
+ const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200
+}*/
+const corsOptions = {
+  origin: ['https://newlove.cl', 'http://localhost:8080'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+  credentials: true, // Habilita el intercambio de cookies o credenciales
+  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+  optionsSuccessStatus: 200, // Respuesta exitosa para las solicitudes OPTIONS
+};
+app1.use(cors(corsOptions))
 
-//provando cors
-app1.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
-var whitelist = ['https://portalpropiedades.netlify.app', 'http://example2.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
 
-app.use('Access-Control-Allow-Origin'='*');
- 
-app1.get('/products/:id', cors(corsOptions), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
-})
- 
-app1.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
-})
-//_--------
+/* //me da error por que no estan definidas y tiene sentido se supone qu estas keys estan en la nube 
+const options2_production = {
+  key: fs.readFileSync('/etc/ssl/private/privkey.pem'),
+  cert: fs.readFileSync('/etc/ssl/certs/fullchain.pem')
+};
+
+https.createServer(options2_production, app1).listen(443, () => {
+  console.log('Server running on port 443');
+});
+*/
+
+//--------
 
 
   //mensiona que aquui podemos configurar el motor
@@ -346,7 +341,7 @@ app1.post("/servicio_completo/:id",async(req,res)=>{
  
 })
   //version para inmobiliaria autenticar 1 obtener pago y response inmobiliaria
-app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
+app1.post("/pagarv5inmobiliaria/:id",async(req,res)=>{
     //versiona app
     console.log("ENTRO A PAGAR V5")
   
@@ -367,7 +362,7 @@ app1.post("/pagarv5inmobiliaria/:id",cors(corsOptions),async(req,res)=>{
         "buy_order": buy_orderv5,//
         "session_id":"01112",// este valor creo que viene de transbanck 
         "amount": amount_v5,
-        "return_url":"http://salonhousev2.herokuapp.com/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
+        "return_url":"https://newloverbacked.com/response2inmobiliaria" //"https://webpay3gint.transbank.cl" // "http://salonhousev2.herokuapp.com"
       })
       console.log(data5);
   
@@ -1167,6 +1162,7 @@ Checkout.create({
 })
 //2PAGOS -CHaRGUE (ESTE funciono perfectamente )
 app1.post('/chargue3cargos/:id',async(req,res)=>{
+//blabla 
   console.log("chargue crear un cargo  de pago ");
   var uid_c0=req.body['uid'];
   var buy_orderv_C0=req.body['buyOrder'];
@@ -1574,15 +1570,88 @@ router.post('/coins', function  (request, response ){
 
 
 
-//-----------------coinbase over---------------
+//-----------------IA gemini---------------
+app1.post("/generate-video", async (req, res) => {
+   
+      console.log ('entro a generar video ');
+  try {
+    const { prompt, imageUrl } = req.body;
 
+    // Ejemplo con Google Gemini Video API (hipotético)
+    const response = await axios.post(
+      "https://generativelanguage.googleapis.com/v1beta/models/veo-3:generateVideo?key=" + process.env.GEMINI_API_KEY,
+      {
+        prompt: {
+          text: prompt,
+        },
+        ...(imageUrl && { image: { url: imageUrl } }),
+        config: {
+          durationSeconds: 5, // duración de video
+          aspectRatio: "16:9",
+        },
+      }
+    );
+
+    // Supongamos que la API devuelve una URL del video generado
+    res.json({
+      status: "success",
+      videoUrl: response.data.videoUrl || "https://example.com/video.mp4",
+    });
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    res.status(500).json({ error: "Error al generar video" });
+  }
+});
+//V2
+app1.post("/generate-video2", async (req, res) => {
+  const { prompt } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ error: "Falta el campo prompt" });
+  }
+
+  try {
+    // Llamada a Gemini Veo 3
+    const response = await axios.post(
+      "https://generativelanguage.googleapis.com/v1beta/models/veo-3:generateVideo?key=" + process.env.GEMINI_API_KEY,
+      {
+        prompt: { text: prompt },
+        config: {
+          durationSeconds: 5,
+          aspectRatio: "16:9"
+        }
+      },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    // La API devuelve un objeto con URL o ID del video
+    const videoUrl = response.data?.videoUrl || null;
+
+    if (!videoUrl) {
+      return res.status(500).json({ error: "No se generó video" });
+    }
+
+    res.json({
+      status: "success",
+      videoUrl
+    });
+
+  } catch (error) {
+    console.error("Error Gemini:", error.response?.data || error.message);
+    res.status(500).json({ error: "Error al generar video" });
+  }
+});
 
 
 //agregado 
 //app1.listen((process.env.PORT || app1...
 app1.listen(process.env.PORT ||app1.get('port'),()=>{ //app1.listen(5000,()=>{  //puerto local de escucha de nuestro servidor  "http://localhost:3000/"
    console.log(app1.get('app_name')); ///nombre del puerto
-   console.log('puerto' ,app1.get('port')); //puerto N°
+   console.log('puerto:' ,app1.get('port')); //puerto N°
 
    });
 
