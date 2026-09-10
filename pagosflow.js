@@ -27,7 +27,7 @@ const hbs=require('express-hbs');
 const cors=require('cors');
 //'http://localhost:8080'
 const corsOptions = {
-  origin: ['https://newlove.cl', 
+  origin: ['https://newlove.cl', "https://estudiofacil.com",
     ,"https://www.flow.cl","https://sandbox.flow.cl", 
     "https://hydraacademy.netlify.app/", "https://hydraschool.lat/","https://hydraschool.lat",
      "https://montoyapeluqueria.netlify.app/","https://montoyapeluqueria.netlify.app/#home",
